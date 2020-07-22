@@ -4,11 +4,11 @@ This repository contains all code for a trivia application, a starter project to
 
 ## Development
 
-- Next.JS based scaffolding for this project.
+- [Next.JS](nextjs.org) based scaffolding for this project.
 - JavaScript based stack that supports [TypeScript](https://typescriptlang.org). Initially, the project will support TypeScript based development, but JavaScript files may be seen
   in the project as all collaborators become familiar with React using JavaScript, with the eventual goal of creating all UI components using React + TypeScript.
-- [TSLint] is utilized to help ensure that code conforms to an internal standard
-- UIs are built using [React](https://reactjs.org) for views, [React Router](https://reacttraining.com/react-router) for browser-based routing
+- [TSLint](https://palantir.github.io/tslint/) is utilized to help ensure that code conforms to an internal standard
+- UIs are built using [React](https://reactjs.org) for views.
 
 ## Installation
 

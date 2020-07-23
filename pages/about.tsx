@@ -1,15 +1,17 @@
 import Link from "next/link";
 import Layout from "../components/Layout/Layout";
+import App from "../App"
 
 const AboutPage = () => (
-  <Layout title="About | Trivia App">
-    <h1>About</h1>
-    <p>This is the about page</p>
+  <Layout title="Quiz | Trivia App">
+    <h1>Quiz</h1>
+    <p>This is the quiz page</p>
     <p>
       <Link href="/">
         <a>Go home</a>
       </Link>
     </p>
+    <App />
   </Layout>
 );
 

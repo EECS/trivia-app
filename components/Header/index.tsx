@@ -17,7 +17,7 @@ const Header = ({ items }: Props) => {
             <nav>
                 {items.map((item) => {
                     return (
-                        <Link href={item.href}>
+                        <Link href={item.href} key={item.href}>
                             <LinkItem>{item.label}</LinkItem>
                         </Link>
                     )

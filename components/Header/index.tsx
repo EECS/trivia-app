@@ -1,25 +1,29 @@
 import React from "react";
-// import ReactDOM from "react-dom"
 import Link from "next/link";
-import Header from "../components/Header";
+import { LinkItem } from './styles';
 
-// @TODO define prop types
+type HeaderItem = {
+    label: string;
+    href: string;
+}
+
 type Props = {
-    // items: array;
+    items: Array<HeaderItem>
 };
 
-const Header = ({ items }) => {
-  const foo = 'bar';
+const Header = ({ items }: Props) => {
     return (
-        <nav>
-            {items.map((item) => {
-                return (
-                    <Link href={item.href}>
-                        <a>{item.label}</a>
-                    </Link>
-                )
-            })}
-        </nav>
+        <header>
+            <nav>
+                {items.map((item) => {
+                    return (
+                        <Link href={item.href}>
+                            <LinkItem>{item.label}</LinkItem>
+                        </Link>
+                    )
+                })}
+            </nav>
+        </header>
     )
 };
 

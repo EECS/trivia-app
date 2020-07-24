@@ -3,7 +3,7 @@ import QuizList from "./QuizList";
 import Button from "./Button"
 import axios from "axios";
 
-function App() {
+function Quiz() {
     const [questions, setQuestions] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -36,7 +36,7 @@ function App() {
     )
 }
 
-export default App;
+export default Quiz;
 
 // {
 //     cancelToken: new axios.CancelToken(c => cancel = c) // Will cancel the old request if user requests another before the previous one finishes

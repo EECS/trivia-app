@@ -11,7 +11,7 @@ function QuizList({ questions }) { // easier than props.questions
                             {question.question}
                         </div>
                         <div>
-                            Answer: {question.correct_answer}
+                            {/* <AnswerList /> */}
                         </div>
                     </li>
                 )

@@ -1,16 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom"
+// import ReactDOM from "react-dom"
 import Link from "next/link";
-import Layout from "../components/Layout/Layout";
+import Layout from "../components/Layout";
+import Header from "../components/Header";
 
 const IndexPage = () => (
   <Layout title="Home | Trivia App">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>Quiz</a>
-      </Link>
-    </p>
+    <Link href="/about">
+      <a>Quiz</a>
+    </Link>
+
   </Layout>
 );
 

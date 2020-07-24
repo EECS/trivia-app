@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import QuizList from "./components/QuizList";
+import QuizList from "./QuizList";
+import Button from "./Button"
 import axios from "axios";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <div>
             {/* {console.log('RETURNED FRONT END: ', questions)} */}
             {loading ? "Loading..." : <QuizList questions={questions}/>}
+            <Button>Take Quiz</Button>
         </div>
     )
 }

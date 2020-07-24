@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import Link from "next/link";
 import Head from "next/head";
-import App from "../../App"
+import App from "../Quiz"
 
 type Props = {
   children?: ReactNode;

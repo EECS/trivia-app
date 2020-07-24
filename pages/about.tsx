@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Layout from "../components/Layout/Layout";
-import App from "../App"
+import App from "../components/Quiz"
 
 const AboutPage = () => (
   <Layout title="Quiz | Trivia App">

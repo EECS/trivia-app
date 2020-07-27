@@ -7,7 +7,7 @@ function QuizList({questions}, setScore) { // easier than props.questions
             <ul id="quizList">
                 {questions.map(question => {
                     return (
-                        <li key={question.question}>
+                        <li key={question.index}>
                             <div>
                                 <Question question={question} setScore={setScore} />
                             </div>

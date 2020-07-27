@@ -30,14 +30,21 @@ const QuizPage = () => {
     setDifficulty(selectedOption);
   }
 
-  console.log('QUESTIONS FOR COMPONENT ------', questions);
-
   return (
   <Layout title="Quiz | Trivia App">
     <h1>Quiz Page</h1>
-    <ConfigureQuiz onDifficultySelect={onDifficultySelect} selectedDifficulty={difficulty} onStartClick={onStartClick} />
-    <Scoreboard score={score} />
-    <QuizList questions={questions} onStartClick={onStartClick} setScore={setScore}/>
+    
+    {
+      questions.length === 0 &&
+      <div>
+        <ConfigureQuiz onDifficultySelect={onDifficultySelect} selectedDifficulty={difficulty} onStartClick={onStartClick} />
+      </div>
+    }
+
+    <div>
+      <Scoreboard score={score} />
+      <QuizList questions={questions} onStartClick={onStartClick} setScore={setScore}/>
+    </div>  
     
   </Layout>
 )};

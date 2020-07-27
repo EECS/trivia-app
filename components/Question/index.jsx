@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Button from "../Button";
 
-const Question = ({ question, setScore }) => {
-
+const Question = ({ question: { question, correct_answer, incorrect_answers } }, handleAnswer) => {
 
     // Combines correct/incorrect answer arrays
-    const combinedArray = [question.correct_answer, ...question.incorrect_answers];
+    const combinedArray = [correct_answer, ...incorrect_answers];
 
     // Helper function to randomize position of correct/incorrect answers in question array
     function shuffledArray(arr){
@@ -33,13 +32,13 @@ const Question = ({ question, setScore }) => {
     // Ternary checks to see if an answer is equal to the correct answer to give it a "correct" button
     return(
         <div>
-            <p>{question.question}</p>
+            <p>{question}</p>
 
             {allAnswers.map(answer => {
                 return (
-                    answer === question.correct_answer ?
-                        <button onClick={correctAnswer}>
-                            {question.correct_answer}
+                    answer === correct_answer ?
+                        <button onClick={() => handleAnswer(answer)}>
+                            {correct_answer}
                         </button>
                     : <button onClick={incorrectAnswer}>{answer}</button>
                 )

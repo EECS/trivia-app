@@ -1,1 +1,1 @@
-export const HEADER_ITEMS = [{ href: '/', label: 'Home'}, { href: '/about', label: 'Quiz'}];
+export const HEADER_ITEMS = [{ href: '/', label: 'Home'}, { href: '/quiz', label: 'Quiz'}];

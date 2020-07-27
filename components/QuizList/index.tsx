@@ -4,6 +4,7 @@
 // You're also going to want to use the CURRENT QUESTION NUMBER to CONDITIONALLY RENDER the quiz CONFIGURE OR the QUIZ QUESTION
 // if current question exsits, then render the quiz item, and pass the question to it, else the quiz configure
     // Basically saying: Won't change page until there's an actual question to display
+    
     // "React ecosystems are dumb" - Sean
     // "Components should be stupid - not a lot of logic. They should be just taking in props and not really knowing/caring waht parameters are"
     // Button doesn't care what happens when it's clicked - the USER/PARENT COMPONENTS care what happens thought

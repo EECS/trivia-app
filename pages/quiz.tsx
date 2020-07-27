@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import Quiz from "../components/Quiz";
 import axios from "axios";
-import QuizList from ""
+import QuizList from "../components/QuizList"
+import Scoreboard from "../components/Scoreboard"
 
 import ConfigureQuiz from "../components/ConfigureQuiz";
 
@@ -11,6 +12,7 @@ const QuizPage = () => {
   const [questions, setQuestions] = useState([]);
   const [difficulty, setDifficulty] = useState();
   const [currentQuestion, setCurrentQuestion] = useState();
+  const [score, setScore] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const onStartClick = () => {
@@ -28,11 +30,15 @@ const QuizPage = () => {
     setDifficulty(selectedOption);
   }
 
+  console.log('QUESTIONS FOR COMPONENT ------', questions);
+
   return (
   <Layout title="Quiz | Trivia App">
     <h1>Quiz Page</h1>
     <ConfigureQuiz onDifficultySelect={onDifficultySelect} selectedDifficulty={difficulty} onStartClick={onStartClick} />
-    {/* <QuizList /> */}
+    <Scoreboard score={score} />
+    <QuizList questions={questions} onStartClick={onStartClick} setScore={setScore}/>
+    
   </Layout>
 )};
 

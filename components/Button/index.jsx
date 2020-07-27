@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import StyledButton from './styles';
 
 function Button(props) {
@@ -7,4 +7,4 @@ function Button(props) {
     )
 }
 
-export default Button
+export default Button;

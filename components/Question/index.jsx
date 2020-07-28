@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Button from "../Button";
 
-const Question = ({ question: { question, correct_answer, incorrect_answers } }, handleAnswer) => {
-
+const Question = ({
+    handleAnswer,
+    data: { question, correct_answer, incorrect_answers } }) => {
     // Combines correct/incorrect answer arrays
     const combinedArray = [correct_answer, ...incorrect_answers];
 
@@ -18,17 +19,6 @@ const Question = ({ question: { question, correct_answer, incorrect_answers } },
     // Randomized array of correct/incorrect answers for rendering
     const allAnswers = shuffledArray(combinedArray);
 
-    function correctAnswer(){
-        // setScore(prevScore => prevScore + 1);
-        alert('Correct! :)');
-    }
-
-    function incorrectAnswer(){
-        alert('Incorrect! :(');
-    }
-
-    // const decodedQuestion = decodeURI(question.question);
-
     // Ternary checks to see if an answer is equal to the correct answer to give it a "correct" button
     return(
         <div>
@@ -37,10 +27,11 @@ const Question = ({ question: { question, correct_answer, incorrect_answers } },
             {allAnswers.map(answer => {
                 return (
                     answer === correct_answer ?
-                        <button onClick={() => handleAnswer(answer)}>
+                        <Button onClick={() => handleAnswer(answer)}>
                             {correct_answer}
-                        </button>
-                    : <button onClick={incorrectAnswer}>{answer}</button>
+                        </Button>
+                    : 
+                    <Button onClick={() => handleAnswer(answer)}>{answer}</Button>
                 )
             })}
         </div>

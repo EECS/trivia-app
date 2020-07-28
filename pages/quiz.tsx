@@ -38,11 +38,9 @@ const QuizPage = () => {
     answer === questions[currentQuestion].correct_answer && 
     setScore(prevScore => prevScore + 1);
 
-    // Check answer
-      // If correct, show another question
-      // setCurrentQuestion(currentQuestion => currentQuestion + 1);
-
-    currentQuestion >= (questions.length) && 
+    // Checks to see if user is at end of quiz
+    // Currently have an "off by 1" error - crashing when hitting final question
+    currentQuestion >= (questions.length - 1) && 
       setQuizEnd(true);
   };
 
@@ -51,6 +49,13 @@ const QuizPage = () => {
     <h1>Quiz Page</h1>
       
     {
+
+      quizEnd ? 
+      <div>
+        <h1>You finished the quiz. Your score was: {score}.</h1>
+      </div>
+      
+      :
 
       questions.length === 0 ?
       <div>
@@ -81,8 +86,3 @@ const QuizPage = () => {
 )};
 
 export default QuizPage;
-
-{/* //  <div>
-//       <Scoreboard score={score} />
-//       <QuizList questions={questions} onStartClick={onStartClick} setScore={setScore} handleAnswer={handleAnswer}/>
-//   </div>   */}

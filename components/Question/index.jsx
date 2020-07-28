@@ -27,7 +27,7 @@ const Question = ({
             {allAnswers.map(answer => {
                 return (
                     answer === correct_answer ?
-                        <Button onClick={() => handleAnswer(answer)}>
+                        <Button style={{border: '2px solid black'}} onClick={() => handleAnswer(answer)}>
                             {correct_answer}
                         </Button>
                     : 

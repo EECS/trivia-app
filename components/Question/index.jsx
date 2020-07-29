@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Button from "../Button";
+// import React from 'r'
+import Button from './styles';
+
 
 const Question = ({
     handleAnswer,

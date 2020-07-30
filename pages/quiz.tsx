@@ -1,49 +1,56 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Layout from "../components/Layout";
-import Quiz from "../components/Quiz";
 import axios from "axios";
-import QuizList from "../components/QuizList";
 import Question from "../components/Question";
 import Scoreboard from "../components/Scoreboard";
 import ConfigureQuiz from "../components/ConfigureQuiz";
 import Button from "../components/Button";
 
+//Types import
+import { TOption } from "../types/ConfigureQuiz/ConfigureQuiz.types";
+import { TAPIQuizResponse } from "../types/quiz/quiz.types";
+
+
+//Constants import
+import { DIFFICULTY_OPTIONS } from "../components/ConfigureQuiz/constants";
+
 const QuizPage = () => {
-  const [questions, setQuestions] = useState([]);
-  const [difficulty, setDifficulty] = useState();
+  const [questions, setQuestions] = useState<TAPIQuizResponse[]>([]);
+  const [difficulty, setDifficulty] = useState<TOption>({
+    label: DIFFICULTY_OPTIONS[0].label,
+    value: DIFFICULTY_OPTIONS[0].value
+  });
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
-  const [loading, setLoading] = useState(false);
   const [isDisplayingResults, setIsDisplayingResults] = useState(false);
   // const [quizEnd, setQuizEnd] = useState(false);
 
   const onStartClick = () => {
     if (!difficulty) return;
-    setLoading(true);
     const url = `https://opentdb.com/api.php?amount=10&category=22&difficulty=${difficulty.value}`;
     axios.get(url).then((res) => {
-      setLoading(false);
       setScore(0);
       setQuestions(res.data.results);
       setCurrentQuestionIndex(0);
-    }, []);
+    }).catch(err => {
+      console.error(err)
+    });
   };
 
   const onReset = () => {
     setQuestions([]);
-    setDifficulty();
+    setDifficulty({ label: DIFFICULTY_OPTIONS[1].label, value: DIFFICULTY_OPTIONS[1].value });
     setCurrentQuestionIndex(0);
     setScore(0);
-    setLoading(false);
     setIsDisplayingResults(false);
   };
 
-  const onDifficultySelect = (selectedOption) => {
+  const onDifficultySelect = (selectedOption: TOption) => {
     setDifficulty(selectedOption);
   };
 
-  const handleAnswer = (answer) => {
+  const handleAnswer = (answer: string) => {
     const correctAnswer = questions[currentQuestionIndex].correct_answer;
     if (answer === correctAnswer) setScore(score + 1);
 
@@ -64,37 +71,25 @@ const QuizPage = () => {
     );
   }
 
-  if (!questions.length)
-    return (
-      <ConfigureQuiz
-        onDifficultySelect={onDifficultySelect}
-        selectedDifficulty={difficulty}
-        onStartClick={onStartClick}
-      />
-    );
-
   return (
     <Layout title="Quiz | Trivia App">
       <h1>Quiz Page</h1>
-      <div class="main">
-        {questions.length === 0 ? (
+      <div className="main">
+        {questions.length === 0 && difficulty !== undefined ? (
           <ConfigureQuiz
             onDifficultySelect={onDifficultySelect}
             selectedDifficulty={difficulty}
             onStartClick={onStartClick}
           />
         ) : (
-          <div>
-            <Scoreboard score={score} />
-            <Question
-              data={questions[currentQuestionIndex]}
-              onStartClick={onStartClick}
-              setScore={setScore}
-              handleAnswer={handleAnswer}
-              setCurrentQuestionIndex={setCurrentQuestionIndex}
-            />
-          </div>
-        )}
+            <div>
+              <Scoreboard score={score} />
+              <Question
+                data={questions[currentQuestionIndex]}
+                handleAnswer={handleAnswer}
+              />
+            </div>
+          )}
       </div>
     </Layout>
   );

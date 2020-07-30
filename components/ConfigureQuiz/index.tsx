@@ -1,24 +1,28 @@
 import React from "react";
-import Select from "react-select";
+import Select, { ValueType } from "react-select";
+
+//Types import
+import { TOption } from "../../types/ConfigureQuiz/ConfigureQuiz.types";
 
 import Button from '../Button';
 
 import { DIFFICULTY_OPTIONS } from './constants';
 
 type Props = {
-    onDifficultySelect: Function,
+    onDifficultySelect(value: ValueType<TOption>): void,
     onStartClick: Function,
-    selectedDifficulty?: string,
+    selectedDifficulty: TOption,
 };
 
 
 const ConfigureQuiz = ({ onDifficultySelect, onStartClick, selectedDifficulty }: Props) => {
     return (
         <div>
-            <Select 
+            <Select
                 options={DIFFICULTY_OPTIONS}
-                onChange={onDifficultySelect}
+                onChange={option => onDifficultySelect(option)}
                 value={selectedDifficulty}
+                defaultValue={DIFFICULTY_OPTIONS[0]}
             />
             <Button onClick={onStartClick} disabled={!selectedDifficulty}>Start Quiz</Button>
         </div>

@@ -11,7 +11,6 @@ import Button from "../components/Button";
 import { TOption } from "../types/ConfigureQuiz/ConfigureQuiz.types";
 import { TAPIQuizResponse } from "../types/quiz/quiz.types";
 
-
 //Constants import
 import { DIFFICULTY_OPTIONS } from "../constants/ConfigureQuiz/constants";
 
@@ -19,7 +18,7 @@ const QuizPage = () => {
   const [questions, setQuestions] = useState<TAPIQuizResponse[]>([]);
   const [difficulty, setDifficulty] = useState<TOption>({
     label: DIFFICULTY_OPTIONS[0].label,
-    value: DIFFICULTY_OPTIONS[0].value
+    value: DIFFICULTY_OPTIONS[0].value,
   });
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -29,18 +28,24 @@ const QuizPage = () => {
   const onStartClick = () => {
     if (!difficulty) return;
     const url = `https://opentdb.com/api.php?amount=10&category=22&difficulty=${difficulty.value}`;
-    axios.get(url).then((res) => {
-      setScore(0);
-      setQuestions(res.data.results);
-      setCurrentQuestionIndex(0);
-    }).catch(err => {
-      console.error(err)
-    });
+    axios
+      .get(url)
+      .then((res) => {
+        setScore(0);
+        setQuestions(res.data.results);
+        setCurrentQuestionIndex(0);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const onReset = () => {
     setQuestions([]);
-    setDifficulty({ label: DIFFICULTY_OPTIONS[1].label, value: DIFFICULTY_OPTIONS[1].value });
+    setDifficulty({
+      label: DIFFICULTY_OPTIONS[1].label,
+      value: DIFFICULTY_OPTIONS[1].value,
+    });
     setCurrentQuestionIndex(0);
     setScore(0);
     setIsDisplayingResults(false);
@@ -82,14 +87,14 @@ const QuizPage = () => {
             onStartClick={onStartClick}
           />
         ) : (
-            <div>
-              <Scoreboard score={score} />
-              <Question
-                data={questions[currentQuestionIndex]}
-                handleAnswer={handleAnswer}
-              />
-            </div>
-          )}
+          <div>
+            <Scoreboard score={score} />
+            <Question
+              data={questions[currentQuestionIndex]}
+              handleAnswer={handleAnswer}
+            />
+          </div>
+        )}
       </div>
     </Layout>
   );

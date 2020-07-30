@@ -43,18 +43,3 @@ const Question = ({
 };
 
 export default Question;
-
-// return(
-//         <div>
-//             <p>{question.question}</p>
-//             <button onClick={correctAnswer}>
-//                 {question.correct_answer}
-//             </button>
-
-//             {question.incorrect_answers.map(answer => {
-//                 return (
-//                     <button onClick={incorrectAnswer}>{answer}</button>
-//                 )
-//             })}
-//         </div>
-//     )

@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import Head from "next/head";
 import Header from '../Header';
-import { HEADER_ITEMS } from './constants';
+import { HEADER_ITEMS } from '../Header/constants';
 
 type Props = {
   children?: ReactNode;

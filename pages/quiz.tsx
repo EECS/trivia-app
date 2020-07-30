@@ -13,7 +13,7 @@ import { TAPIQuizResponse } from "../types/quiz/quiz.types";
 
 
 //Constants import
-import { DIFFICULTY_OPTIONS } from "../components/ConfigureQuiz/constants";
+import { DIFFICULTY_OPTIONS } from "../constants/ConfigureQuiz/constants";
 
 const QuizPage = () => {
   const [questions, setQuestions] = useState<TAPIQuizResponse[]>([]);

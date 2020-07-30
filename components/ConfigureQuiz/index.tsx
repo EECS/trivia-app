@@ -6,7 +6,7 @@ import { TOption } from "../../types/ConfigureQuiz/ConfigureQuiz.types";
 
 import Button from '../Button';
 
-import { DIFFICULTY_OPTIONS } from './constants';
+import { DIFFICULTY_OPTIONS } from '../../constants/ConfigureQuiz/constants';
 
 type Props = {
     onDifficultySelect(value: ValueType<TOption>): void,

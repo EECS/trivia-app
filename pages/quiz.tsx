@@ -7,6 +7,7 @@ import QuizList from "../components/QuizList";
 import Question from "../components/Question";
 import Scoreboard from "../components/Scoreboard";
 import ConfigureQuiz from "../components/ConfigureQuiz";
+import Button from "../components/Button";
 
 const QuizPage = () => {
   const [questions, setQuestions] = useState([]);
@@ -26,7 +27,6 @@ const QuizPage = () => {
       setScore(0);
       setQuestions(res.data.results);
       setCurrentQuestionIndex(0);
-      // setCurrentQuestionIndex(prevQuestion => prevQuestion + 1);
     }, []);
   };
 
@@ -49,14 +49,19 @@ const QuizPage = () => {
 
     // At the last question
     if (currentQuestionIndex === questions.length - 1) {
-      // onReset();
+      setIsDisplayingResults(true);
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
 
   if (isDisplayingResults) {
-    return <div>Results Screen</div>;
+    return (
+      <div>
+        <h1>You finished the quiz. Your score was: {score}.</h1>
+        <Button onClick={onReset}>Take Another Quiz!</Button>
+      </div>
+    );
   }
 
   if (!questions.length)
@@ -72,10 +77,7 @@ const QuizPage = () => {
     <Layout title="Quiz | Trivia App">
       <h1>Quiz Page</h1>
       <div class="main">
-        {/* <Quiz /> */}
-        {false ? (
-          <h1>You finished the quiz. Your score was: {score}.</h1>
-        ) : questions.length === 0 ? (
+        {questions.length === 0 ? (
           <ConfigureQuiz
             onDifficultySelect={onDifficultySelect}
             selectedDifficulty={difficulty}

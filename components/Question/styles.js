@@ -1,6 +1,7 @@
-import styled from 'styled-components';
-import Button from '../Button';
+import styled from "styled-components";
+import Button from "../Button";
+import Question from "../Question";
 
 export default styled(Button)`
- border: 1px solid red;
-`
+  border: 3px solid red;
+`;

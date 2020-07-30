@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 // import React from 'r'
 import Button from './styles';
 
+//Util import
+import { shuffledArray } from "../../utilities/utils";
+
 
 const Question = ({
     handleAnswer,
@@ -9,15 +12,6 @@ const Question = ({
     // Combines correct/incorrect answer arrays
     const combinedArray = [correct_answer, ...incorrect_answers];
     const [allAnswers, setAllAnswers] = useState([])
-
-    // Helper function to randomize position of correct/incorrect answers in question array
-    function shuffledArray(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-            let j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
-    }
 
     useEffect(() => {
         // Randomized array of correct/incorrect answers for rendering

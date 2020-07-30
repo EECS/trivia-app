@@ -8,9 +8,10 @@ const Question = ({
     data: { question, correct_answer, incorrect_answers } }) => {
     // Combines correct/incorrect answer arrays
     const combinedArray = [correct_answer, ...incorrect_answers];
+    const [allAnswers, setAllAnswers] = useState([])
 
     // Helper function to randomize position of correct/incorrect answers in question array
-    function shuffledArray(arr){
+    function shuffledArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
             [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -18,22 +19,24 @@ const Question = ({
         return arr;
     }
 
-    // Randomized array of correct/incorrect answers for rendering
-    const allAnswers = shuffledArray(combinedArray);
+    useEffect(() => {
+        // Randomized array of correct/incorrect answers for rendering
+        setAllAnswers(shuffledArray(combinedArray));
+    }, [question])
 
     // Ternary checks to see if an answer is equal to the correct answer to give it a "correct" button
-    return(
+    return (
         <div>
             <p>{question}</p>
 
             {allAnswers.map(answer => {
                 return (
                     answer === correct_answer ?
-                        <Button style={{border: '2px solid black'}} onClick={() => handleAnswer(answer)}>
+                        <Button style={{ border: '2px solid black' }} onClick={() => handleAnswer(answer)}>
                             {correct_answer}
                         </Button>
-                    : 
-                    <Button onClick={() => handleAnswer(answer)}>{answer}</Button>
+                        :
+                        <Button onClick={() => handleAnswer(answer)}>{answer}</Button>
                 )
             })}
         </div>

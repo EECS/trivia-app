@@ -23,11 +23,10 @@ const QuizPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [isDisplayingResults, setIsDisplayingResults] = useState(false);
-  // const [quizEnd, setQuizEnd] = useState(false);
 
   const onStartClick = () => {
     if (!difficulty) return;
-    const url = `https://opentdb.com/api.php?amount=10&category=22&difficulty=${difficulty.value}`;
+    const url = `https://opentdb.com/api.php?amount=10&category=22&difficulty=${difficulty.value}&encode=base64`;
     axios
       .get(url)
       .then((res) => {
@@ -87,14 +86,14 @@ const QuizPage = () => {
             onStartClick={onStartClick}
           />
         ) : (
-          <div>
-            <Scoreboard score={score} />
-            <Question
-              data={questions[currentQuestionIndex]}
-              handleAnswer={handleAnswer}
-            />
-          </div>
-        )}
+            <div>
+              <Scoreboard score={score} />
+              <Question
+                data={questions[currentQuestionIndex]}
+                handleAnswer={handleAnswer}
+              />
+            </div>
+          )}
       </div>
     </Layout>
   );

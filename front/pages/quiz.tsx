@@ -14,6 +14,16 @@ import { TAPIQuizResponse } from "../types/quiz/quiz.types";
 //Constants import
 import { DIFFICULTY_OPTIONS } from "../constants/ConfigureQuiz/constants";
 
+//Util import
+import { decodeText } from "../../utilities/utils";
+
+// Normalizes encoded text
+// const normalizedQuestion = decodeText(question);
+// const normalizedCorrectAnswer = decodeText(correct_answer);
+// const normalizedIncorrectAnswers = incorrect_answers.map((item) =>
+//   decodeText(item)
+// );
+
 const QuizPage = () => {
   const [questions, setQuestions] = useState<TAPIQuizResponse[]>([]);
   const [difficulty, setDifficulty] = useState<TOption>({
@@ -23,11 +33,10 @@ const QuizPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [isDisplayingResults, setIsDisplayingResults] = useState(false);
-  // const [quizEnd, setQuizEnd] = useState(false);
 
   const onStartClick = () => {
     if (!difficulty) return;
-    const url = `https://opentdb.com/api.php?amount=10&category=22&difficulty=${difficulty.value}`;
+    const url = `https://opentdb.com/api.php?amount=10&category=22&difficulty=${difficulty.value}&encode=base64`;
     axios
       .get(url)
       .then((res) => {

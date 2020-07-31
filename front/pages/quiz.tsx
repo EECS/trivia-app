@@ -14,16 +14,6 @@ import { TAPIQuizResponse } from "../types/quiz/quiz.types";
 //Constants import
 import { DIFFICULTY_OPTIONS } from "../constants/ConfigureQuiz/constants";
 
-//Util import
-import { decodeText } from "../../utilities/utils";
-
-// Normalizes encoded text
-// const normalizedQuestion = decodeText(question);
-// const normalizedCorrectAnswer = decodeText(correct_answer);
-// const normalizedIncorrectAnswers = incorrect_answers.map((item) =>
-//   decodeText(item)
-// );
-
 const QuizPage = () => {
   const [questions, setQuestions] = useState<TAPIQuizResponse[]>([]);
   const [difficulty, setDifficulty] = useState<TOption>({
@@ -96,14 +86,14 @@ const QuizPage = () => {
             onStartClick={onStartClick}
           />
         ) : (
-          <div>
-            <Scoreboard score={score} />
-            <Question
-              data={questions[currentQuestionIndex]}
-              handleAnswer={handleAnswer}
-            />
-          </div>
-        )}
+            <div>
+              <Scoreboard score={score} />
+              <Question
+                data={questions[currentQuestionIndex]}
+                handleAnswer={handleAnswer}
+              />
+            </div>
+          )}
       </div>
     </Layout>
   );

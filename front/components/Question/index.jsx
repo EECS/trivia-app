@@ -5,6 +5,9 @@ import Button from "./styles";
 //Util import
 import { shuffledArray } from "../../utilities/utils";
 
+//Util import
+import { decodeText } from "../../utilities/utils";
+
 const Question = ({
   handleAnswer,
   data: { question, correct_answer, incorrect_answers },
@@ -21,7 +24,7 @@ const Question = ({
   // Ternary checks to see if an answer is equal to the correct answer to give it a "correct" button
   return (
     <div>
-      <p>{question}</p>
+      <p>{decodeText(question)}</p>
 
       {allAnswers.map((answer) => {
         return answer === correct_answer ? (
@@ -30,13 +33,13 @@ const Question = ({
             style={{ border: "2px solid black" }}
             onClick={() => handleAnswer(answer)}
           >
-            {correct_answer}
+            {decodeText(correct_answer)}
           </Button>
         ) : (
-          <Button key={answer} onClick={() => handleAnswer(answer)}>
-            {answer}
-          </Button>
-        );
+            <Button key={answer} onClick={() => handleAnswer(answer)}>
+              {decodeText(answer)}
+            </Button>
+          );
       })}
     </div>
   );

@@ -7,7 +7,7 @@
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "prestart": "npm run build",
-    "start": "node dist/server.js",
+    "start": "nodemon src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -26,6 +26,8 @@
     "@types/express-session": "^1.17.0",
     "@types/node": "^14.0.27",
     "@types/redis": "^2.8.25",
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.2",
     "tslint": "^6.1.2",
     "typescript": "^3.9.7"
   }

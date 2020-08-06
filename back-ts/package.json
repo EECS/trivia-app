@@ -11,7 +11,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "knex:migrate:make": "knex --knexfile knexfile.ts migrate:make",
     "knex:migrate:latest": "knex --knexfile knexfile.ts migrate:latest",
-    "knex:migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback"
+    "knex:migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback",
+    "knex:seed:make": "knex --knexfile knexfile.ts seed:make",
+    "knex:seed:run": "knex --knexfile knexfile.ts seed:run"
   },
   "keywords": [],
   "author": "Jacob Shannon and Alex Whan",

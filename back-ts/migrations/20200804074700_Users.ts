@@ -2,7 +2,8 @@ import * as Knex from "knex";
 
 export async function up(knex: Knex): Promise<void> {
     return knex.schema.createTable("Users", (table: Knex.TableBuilder) => {
-        table.uuid('userId')
+        table.increments();
+        table.string("userName")
     })
 }
 

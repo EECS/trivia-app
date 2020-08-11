@@ -4,6 +4,8 @@ export async function up(knex: Knex): Promise<void> {
     return knex.schema.createTable("Users", (table: Knex.TableBuilder) => {
         table.increments();
         table.string("userName")
+        table.string("email")
+        table.string("password")
     })
 }
 

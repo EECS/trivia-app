@@ -36,7 +36,6 @@ passport.use(new LocalStrategy(
         try {
             // Encrypt password
             const saltRounds = 10;
-            const encryptedPassword = await bcrypt.hash(password, saltRounds)
 
             const user: TUser[] = await knex.from('Users').select("id", "userName", "email", "password").where({
                 // tslint:disable: object-literal-shorthand
@@ -44,7 +43,7 @@ passport.use(new LocalStrategy(
             })
 
             if (user.length > 0) {
-                const isFound = await bcrypt.compare(password, encryptedPassword)
+                const isFound = await bcrypt.compare(password, user[0].password)
 
                 if (isFound) {
                     return done(null, user[0])
@@ -113,11 +112,7 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
-        if (err) {
-            return next(err)
-        }
-
-        if (!user) {
+        if (err || !user) {
             return res.sendStatus(404)
         }
 

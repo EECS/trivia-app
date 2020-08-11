@@ -2,10 +2,10 @@ import express from "express";
 import session from "express-session";
 import redis from "redis"
 import dotenv from "dotenv"
-import { v4 } from "uuid";
 import bodyParser from "body-parser";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
+import bcrypt from "bcrypt";
 
 dotenv.config()
 
@@ -31,16 +31,31 @@ type TUser = {
 // configure passport.js to use the local strategy
 passport.use(new LocalStrategy(
     { usernameField: "email" },
-    (email, password, done) => {
-        knex.from('Users').select().where({
-            // tslint:disable: object-literal-shorthand
-            email: email,
-            password: password,
-        }).then((user: TUser[]) => {
-            done(null, user[0])
-        }).catch((err: Error) => {
-            done(err, null)
-        });
+    async (email, password, done) => {
+
+        try {
+            // Encrypt password
+            const saltRounds = 10;
+            const encryptedPassword = await bcrypt.hash(password, saltRounds)
+
+            const user: TUser[] = await knex.from('Users').select("id", "userName", "email", "password").where({
+                // tslint:disable: object-literal-shorthand
+                email: email,
+            })
+
+            if (user.length > 0) {
+                const isFound = await bcrypt.compare(password, encryptedPassword)
+
+                if (isFound) {
+                    return done(null, user[0])
+                }
+            }
+
+            done(Error("User not found."), null)
+
+        } catch (e) {
+            done(e, null)
+        }
     }
 ));
 
@@ -50,8 +65,7 @@ passport.serializeUser((user: TUser, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    console.log(id)
-    knex.from('Users').select().where({ id: id })
+    knex.from('Users').select("id", "userName", "email").where({ id: id })
         .then((user: TUser[]) => done(null, user[0]))
         .catch((err: Error) => {
             done(err, null)
@@ -89,8 +103,7 @@ app.use(passport.session());
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {
-    const uuid = v4()
-    res.send(`Hit the home route. Received UUID: ${uuid} with Redis session id: ${req.sessionID}`)
+    res.send(`Hit the home route.`)
 });
 
 // create the login get and post routes
@@ -123,7 +136,7 @@ app.get('/authrequired', (req, res) => {
     if (req.isAuthenticated()) {
         res.send('you hit the authentication endpoint\n and here it is')
     } else {
-        res.redirect('/')
+        res.sendStatus(403)
     }
 })
 

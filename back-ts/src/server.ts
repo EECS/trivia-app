@@ -7,6 +7,10 @@ import bodyParser from "body-parser";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 
+dotenv.config()
+
+// tslint:disable: no-console
+// tslint:disable-next-line: no-var-requires
 const knex = require('knex')({
     client: 'pg',
     connection: {
@@ -17,56 +21,42 @@ const knex = require('knex')({
     }
 });
 
-// tslint:disable: no-console
-
 type TUser = {
     id: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
+    userName: string;
+    email: string;
+    password: string;
 }
-
-const users: TUser[] = [
-    {
-        id: "1",
-        firstName: 'Jacob',
-        lastName: "Shannon",
-        email: "jacobshnn@gmail.com",
-        password: 'password'
-    }
-]
 
 // configure passport.js to use the local strategy
 passport.use(new LocalStrategy(
-    { usernameField: 'email' },
+    { usernameField: "email" },
     (email, password, done) => {
-        console.log('Inside local strategy callback')
-        // here is where you make a call to the database
-        // to find the user based on their username or email address
-        // for now, we'll just pretend we found that it was users[0]
-        const user = users[0]
-        if (email === user.email && password === user.password) {
-            console.log('Local strategy returned true')
-            return done(null, user)
-        }
+        knex.from('Users').select().where({
+            // tslint:disable: object-literal-shorthand
+            email: email,
+            password: password,
+        }).then((user: TUser[]) => {
+            done(null, user[0])
+        }).catch((err: Error) => {
+            done(err, null)
+        });
     }
 ));
 
 // tell passport how to serialize the user
 passport.serializeUser((user: TUser, done) => {
-    console.log('Inside serializeUser callback. User id is save to the session file store here')
     done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-    console.log('Inside deserializeUser callback')
-    console.log(`The user id passport saved in the session file store is: ${id}`)
-    const user = users[0].id === id ? users[0] : false;
-    done(null, user);
+    console.log(id)
+    knex.from('Users').select().where({ id: id })
+        .then((user: TUser[]) => done(null, user[0]))
+        .catch((err: Error) => {
+            done(err, null)
+        })
 });
-
-dotenv.config()
 
 const redisClient = redis.createClient()
 // tslint:disable-next-line
@@ -83,7 +73,7 @@ app.use(session({
     secret: process.env.REDIS_SECRET,
     name: "trivia-app-redis-instance",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: { secure: false },
     store: new redisStore({
         host: process.env.REDIS_HOST || 'localhost',
@@ -100,36 +90,36 @@ app.use(passport.session());
 // define a route handler for the default home page
 app.get("/", (req, res) => {
     const uuid = v4()
-    // tslint:disable-next-line: no-console
-    console.log(req.sessionID)
-    res.send(`Hit the home route. Received UUID: ${uuid}`)
+    res.send(`Hit the home route. Received UUID: ${uuid} with Redis session id: ${req.sessionID}`)
 });
 
 // create the login get and post routes
 app.get('/login', (req, res) => {
-    console.log('Inside GET /login callback function')
-    console.log(req.sessionID)
     res.send(`You got the login page!\n`)
 })
 
 app.post('/login', (req, res, next) => {
-    console.log('Inside POST /login callback')
     passport.authenticate('local', (err, user, info) => {
-        console.log('Inside passport.authenticate() callback');
-        console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`)
-        console.log(`req.user: ${JSON.stringify(req.user)}`)
-        req.login(user, (err) => {
-            console.log('Inside req.login() callback')
-            console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`)
-            console.log(`req.user: ${JSON.stringify(req.user)}`)
+        if (err) {
+            return next(err)
+        }
+
+        if (!user) {
+            return res.sendStatus(404)
+        }
+
+        req.logIn(user, (loginErr) => {
+
+            if (err) {
+                return next(loginErr)
+            }
+
             return res.send('You were authenticated & logged in!\n');
         })
     })(req, res, next);
 })
 
 app.get('/authrequired', (req, res) => {
-    console.log('Inside GET /authrequired callback')
-    console.log(`User authenticated? ${req.isAuthenticated()}`)
     if (req.isAuthenticated()) {
         res.send('you hit the authentication endpoint\n and here it is')
     } else {

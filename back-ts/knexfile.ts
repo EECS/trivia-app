@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config()
 
-const knexConfig = {
+module.exports = {
 
   development: {
     client: 'postgresql',
@@ -25,5 +25,3 @@ const knexConfig = {
     }
   },
 };
-
-export default knexConfig;

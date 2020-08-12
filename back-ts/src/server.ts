@@ -7,18 +7,13 @@ import { Strategy as LocalStrategy } from "passport-local";
 import bcrypt from "bcrypt";
 import config from "./config/index"
 
+import IUser from "./models/User";
+
 // tslint:disable: no-var-requires
 // tslint:disable: no-console
 const knexConfig = require("../knexfile")[config.environment]
 
 const knex = require('knex')(knexConfig);
-
-type TUser = {
-    id: string,
-    userName: string;
-    email: string;
-    password: string;
-}
 
 // configure passport.js to use the local strategy
 passport.use(new LocalStrategy(
@@ -27,7 +22,7 @@ passport.use(new LocalStrategy(
 
         try {
 
-            const user: TUser[] = await knex.from('Users').select().where({
+            const user: IUser[] = await knex.from('Users').select().where({
                 // tslint:disable: object-literal-shorthand
                 email: email,
             })
@@ -49,13 +44,13 @@ passport.use(new LocalStrategy(
 ));
 
 // tell passport how to serialize the user
-passport.serializeUser((user: TUser, done) => {
+passport.serializeUser((user: IUser, done) => {
     done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
     knex.from('Users').select("id", "userName", "email").where({ id: id })
-        .then((user: TUser[]) => done(null, user[0]))
+        .then((user: IUser[]) => done(null, user[0]))
         .catch((err: Error) => {
             done(err, null)
         })

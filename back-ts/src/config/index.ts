@@ -10,11 +10,13 @@ if (envFound.error) {
 
 export default {
     environment: process.env.NODE_ENV,
+    host: process.env.API_HOST,
     port: process.env.API_PORT,
     redis: {
         secretKey: process.env.REDIS_SECRET,
         host: process.env.REDIS_HOST,
         port: process.env.REDIS_PORT,
+        name: process.env.REDIS_NAME
     },
     postgres: {
         host: process.env.PG_HOST,

@@ -68,21 +68,21 @@ const redisClient = redis.createClient()
 const redisStore = require("connect-redis")(session)
 
 const app = express();
-const port = process.env.API_PORT; // default port to listen
+const port = config.port; // default port to listen
 
 // add & configure middleware
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use(session({
-    secret: process.env.REDIS_SECRET,
+    secret: config.redis.secretKey,
     name: "trivia-app-redis-instance",
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false },
     store: new redisStore({
-        host: process.env.REDIS_HOST || 'localhost',
-        port: process.env.REDIS_PORT,
+        host: config.redis.host || 'localhost',
+        port: config.redis.port,
         client: redisClient,
         ttl: 86400
     })

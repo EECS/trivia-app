@@ -1,7 +1,6 @@
 import express, { NextFunction, Request, Response } from "express"
 import bodyParser from "body-parser"
 import cors from "cors"
-import config from "../config"
 import ResponseError from "../interfaces/ResponseError";
 
 export default ({ app }: { app: express.Application }) => {

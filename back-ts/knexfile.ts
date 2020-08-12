@@ -1,17 +1,15 @@
 // Update with your config settings.
-import dotenv from "dotenv";
-
-dotenv.config()
+import config from "./src/config/index";
 
 module.exports = {
 
   development: {
     client: 'postgresql',
     connection: {
-      host: process.env.PG_HOST,
-      database: process.env.PG_DB,
-      user: process.env.PG_USER,
-      password: process.env.PG_PASSWORD
+      host: config.postgres.host,
+      database: config.postgres.dbName,
+      user: config.postgres.user,
+      password: config.postgres.password
     },
     pool: {
       min: 2,

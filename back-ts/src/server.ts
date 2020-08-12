@@ -1,25 +1,17 @@
 import express from "express";
 import session from "express-session";
 import redis from "redis"
-import dotenv from "dotenv"
 import bodyParser from "body-parser";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import bcrypt from "bcrypt";
+import config from "./config/index"
 
-dotenv.config()
-
+// tslint:disable: no-var-requires
 // tslint:disable: no-console
-// tslint:disable-next-line: no-var-requires
-const knex = require('knex')({
-    client: 'pg',
-    connection: {
-        host: process.env.PG_HOST || 'localhost',
-        user: process.env.PG_USER,
-        password: process.env.PG_PASSWORD,
-        database: process.env.PG_DB
-    }
-});
+const knexConfig = require("../knexfile")[config.environment]
+
+const knex = require('knex')(knexConfig);
 
 type TUser = {
     id: string,

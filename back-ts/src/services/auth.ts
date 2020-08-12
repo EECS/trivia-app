@@ -31,7 +31,7 @@ const localStrategy = new LocalStrategy(
     }
 )
 
-const deserializeUser = (id, done) => {
+const deserializeUser = (id: string, done: (err: Error, user: IUser) => void) => {
     knex.from('Users').select("id", "userName", "email").where({ id: id })
         .then((user: IUser[]) => done(null, user[0]))
         .catch((err: Error) => {
@@ -39,7 +39,7 @@ const deserializeUser = (id, done) => {
         })
 }
 
-const serializeUser = (user: IUser, done) => {
+const serializeUser = (user: IUser, done: (err: Error, user: string) => void) => {
     done(null, user.id);
 }
 

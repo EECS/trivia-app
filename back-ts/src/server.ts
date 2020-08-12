@@ -26,10 +26,8 @@ passport.use(new LocalStrategy(
     async (email, password, done) => {
 
         try {
-            // Encrypt password
-            const saltRounds = 10;
 
-            const user: TUser[] = await knex.from('Users').select("id", "userName", "email", "password").where({
+            const user: TUser[] = await knex.from('Users').select().where({
                 // tslint:disable: object-literal-shorthand
                 email: email,
             })

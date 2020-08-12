@@ -8,12 +8,7 @@ import bcrypt from "bcrypt";
 import config from "./config/index"
 
 import IUser from "./models/User";
-
-// tslint:disable: no-var-requires
-// tslint:disable: no-console
-const knexConfig = require("../knexfile")[config.environment]
-
-const knex = require('knex')(knexConfig);
+import knex from "./loaders/knex"
 
 // configure passport.js to use the local strategy
 passport.use(new LocalStrategy(

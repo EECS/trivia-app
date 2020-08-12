@@ -15,10 +15,10 @@ export default ({ app }: { app: express.Application }) => {
    */
 
   app.get("/status", (req, res) => {
-    res.status(200).end()
+    res.send("Ok")
   })
   app.head("/status", (req, res) => {
-    res.status(200).end()
+    res.send("Ok")
   })
 
   // Apparently useful behind a reverse proxy.
@@ -57,7 +57,7 @@ export default ({ app }: { app: express.Application }) => {
   passport.deserializeUser(deserializeUser)
 
   // Load API routes.
-  app.use(`http://${config.host}:${config.port}`, routes)
+  app.use(config.api.prefix, routes())
 
   // Catch 404 and forward to error handler
   app.use((req, res, next) => {

@@ -18,10 +18,10 @@ module.exports = {
       max: 10
     },
     migrations: {
-      directory: __dirname + "/migrations"
+      directory: __dirname + "/src/db/migrations"
     },
     seeds: {
-      directory: __dirname + "/seeds"
+      directory: __dirname + "/src/db/seeds"
     }
   },
 };

@@ -64,7 +64,7 @@ app.use(bodyParser.json())
 
 app.use(session({
     secret: config.redis.secretKey,
-    name: "trivia-app-redis-instance",
+    name: config.redis.name,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false },
@@ -79,16 +79,6 @@ app.use(session({
 // Passport initialization
 app.use(passport.initialize());
 app.use(passport.session());
-
-// define a route handler for the default home page
-app.get("/", (req, res) => {
-    res.send(`Hit the home route.`)
-});
-
-// create the login get and post routes
-app.get('/login', (req, res) => {
-    res.send(`You got the login page!\n`)
-})
 
 app.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {

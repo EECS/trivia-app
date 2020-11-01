@@ -4,4 +4,12 @@ export const HEADER_ITEMS = [{
 }, {
     href: '/quiz',
     label: 'Quiz'
+},
+{
+    href: "/sign-up",
+    label: "Sign Up"
+},
+{
+    href: "login",
+    label: "Login"
 }];

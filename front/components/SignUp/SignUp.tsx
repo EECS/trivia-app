@@ -18,21 +18,26 @@ export const SignUp = () => {
             password: password
         })
 
-        console.log(response)
+        return response;
     }
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        const response =  submitData()
+        console.log(response)
     }
 
-    const 
+    const onClickSubmit = async () => {
+        const response = await submitData();
+        console.log(response)
+    }
     return (
         <form action="submit" onSubmit={onSubmit}>
             <label htmlFor="email">Email:</label>
             <input name="email" type="email" onChange={onEmailChange} value={email}/>
             <label htmlFor="password">Password</label>
             <input name="password" type="password" value={password} onChange={onPasswordChange}/>
-            <button onSubmit={onSubmit}>Submit</button>
+            <button onClick={onClickSubmit}>Submit</button>
         </form>
     )
 }

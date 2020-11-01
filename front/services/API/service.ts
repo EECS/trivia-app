@@ -4,7 +4,10 @@ export const API_Get = async (url: string) => {
 
 export const API_Post_Json = async (url: string, data: any) => {
     return await fetch(url, {
+        headers: {
+            "Content-Type": "application/json"
+        },
         method: "POST",
-        body: data
+        body: JSON.stringify(data)
     })
 }

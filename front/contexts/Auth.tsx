@@ -26,6 +26,14 @@ class Authentication {
       password,
     });
 
+    if (response.ok) {
+      const data: { ok: string; data: string } = await response.json();
+      this.user = {
+        email: data.data,
+        isAuthenticated: true,
+      };
+    }
+
     return response;
   }
 
@@ -34,6 +42,14 @@ class Authentication {
       email,
       password,
     });
+
+    if (response.ok) {
+      const data: { ok: string; data: string } = await response.json();
+      this.user = {
+        email: data.data,
+        isAuthenticated: true,
+      };
+    }
 
     return response;
   }
@@ -50,7 +66,6 @@ type Props = {
 
 export const AuthProvider = (props: Props) => {
   const authStore = new Authentication();
-  console.log(authStore);
   return (
     <AuthContext.Provider value={authStore}>
       {props.children}

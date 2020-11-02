@@ -4,7 +4,7 @@ import getConfig from "next/config";
 
 export const Login_User = async (loginCreds: TLogin) => {
     const {publicRuntimeConfig} = getConfig()
-    const url = `${publicRuntimeConfig.API_HOST_ENV}/login`
+    const url = `${publicRuntimeConfig.API_HOST_ENV}/api/auth/sign-up`
 
     return await API_Post_Json(url, loginCreds)
 }

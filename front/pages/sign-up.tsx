@@ -5,9 +5,7 @@ import { SignUp } from "../components/SignUp/SignUp";
 
 const SignUpPage = () => (
   <Layout title="Sign Up | Trivia App">
-      <div>
-          <SignUp />
-      </div>
+    <SignUp />
   </Layout>
 );
 

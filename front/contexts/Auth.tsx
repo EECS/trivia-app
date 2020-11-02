@@ -1,5 +1,8 @@
 import React from "react";
 
+//Services import
+import { LoginUser, SignUpUser } from "../services/SignUp/service";
+
 //Types import
 import { TUser } from "../types/Auth/Auth.types";
 
@@ -15,6 +18,24 @@ class Authentication {
       email: "",
       isAuthenticated: false,
     };
+  }
+
+  public async signUp(email: string, password: string) {
+    const response = await SignUpUser({
+      email,
+      password,
+    });
+
+    return response;
+  }
+
+  public async login(email: string, password: string) {
+    const response = await LoginUser({
+      email,
+      password,
+    });
+
+    return response;
   }
 }
 

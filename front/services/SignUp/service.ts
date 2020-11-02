@@ -8,3 +8,10 @@ export const SignUpUser = async (loginCreds: TLogin) => {
 
   return await API_Post_Json(url, loginCreds);
 };
+
+export const LoginUser = async (loginCreds: TLogin) => {
+  const { publicRuntimeConfig } = getConfig();
+  const url = `${publicRuntimeConfig.API_HOST_ENV}/api/auth/login`;
+
+  return await API_Post_Json(url, loginCreds);
+};

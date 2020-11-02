@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { LinkItem } from "./styles";
 import { AuthContext } from "../../contexts/Auth";
+import { observer } from "mobx-react";
 
 type HeaderItem = {
   label: string;
@@ -12,7 +13,7 @@ type Props = {
   items: HeaderItem[];
 };
 
-const Header = ({ items }: Props) => {
+const Header = observer(({ items }: Props) => {
   return (
     <AuthContext.Consumer>
       {(auth) => {
@@ -35,12 +36,13 @@ const Header = ({ items }: Props) => {
                     </Link>
                   );
               })}
+              <p>{auth.user.email}</p>
             </nav>
           </header>
         );
       }}
     </AuthContext.Consumer>
   );
-};
+});
 
 export default Header;

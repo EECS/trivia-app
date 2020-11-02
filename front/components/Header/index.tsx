@@ -17,7 +17,6 @@ const Header = ({ items }: Props) => {
     <AuthContext.Consumer>
       {(auth) => {
         if (auth === null) {
-          console.log("failed");
           return Error("Auth context should not be null.");
         }
 

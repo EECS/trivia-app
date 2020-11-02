@@ -49,7 +49,7 @@ const serializeUser = (user: IUser, done: (err: Error, user: string) => void) =>
 /** Given an email, password and username, creates a user. Assumes that email and
  * username provided are unique.
  */
-const createUser = async (email: string, password: string, userName: string) => {
+const createUser = async (email: string, password: string) => {
     try {
         const saltRounds = 10
         const encryptedPassword = bcrypt.hashSync(password, saltRounds)
@@ -57,9 +57,9 @@ const createUser = async (email: string, password: string, userName: string) => 
         // Insert new user into db.
         knex.from("Users").insert({
             email: email,
-            userName: userName,
+            userName: "tmep",
             password: encryptedPassword
-        }).then((user) => { console.log(user); return user }).catch(e => {
+        }).then((user) => {  return user }).catch(e => {
             return e
         })
     } catch (e) {

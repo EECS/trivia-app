@@ -1,10 +1,10 @@
-import { TLogin } from "../../types/Login"
+import { TLogin } from "../../types/Login";
 import { API_Post_Json } from "../API/service";
 import getConfig from "next/config";
 
-export const Login_User = async (loginCreds: TLogin) => {
-    const {publicRuntimeConfig} = getConfig()
-    const url = `${publicRuntimeConfig.API_HOST_ENV}/api/auth/sign-up`
+export const SignUpUser = async (loginCreds: TLogin) => {
+  const { publicRuntimeConfig } = getConfig();
+  const url = `${publicRuntimeConfig.API_HOST_ENV}/api/auth/sign-up`;
 
-    return await API_Post_Json(url, loginCreds)
-}
+  return await API_Post_Json(url, loginCreds);
+};

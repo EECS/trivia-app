@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Login_User } from '../../services/SignUp/service'
+import { SignUpUser } from '../../services/SignUp/service'
 
 export const SignUp = () => {
     const [password, setPassword] = useState("")
@@ -13,7 +13,7 @@ export const SignUp = () => {
     }
 
     const submitData = async () => {
-        const response = await Login_User({
+        const response = await SignUpUser({
             email: email,
             password: password
         })
